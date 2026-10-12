@@ -1,11 +1,7 @@
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from js import Response
 
-app = FastAPI()
-
-@app.get("/", response_class=HTMLResponse)
-async def home():
-    return """
+async def on_fetch(request, env, ctx):
+    html_content = """
     <!DOCTYPE html>
     <html lang="fa" dir="rtl">
     <head>
@@ -18,7 +14,12 @@ async def home():
     </head>
     <body>
         <h1>سلام دنیا! 🚀</h1>
-        <p>این سایت با پایتون (FastAPI) روی کلودفلر ورکر اجرا شده است.</p>
+        <p>این سایت ساده با پایتون روی کلودفلر ورکر اجرا شد.</p>
     </body>
     </html>
     """
+    
+    return Response.new(
+        html_content,
+        headers={"Content-Type": "text/html;charset=UTF-8"}
+    )
